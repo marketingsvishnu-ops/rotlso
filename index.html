@@ -1,0 +1,814 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BookStore Blog - Books, Stories & Reviews</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f6fa;
+    color: #243447;
+    line-height: 1.6;
+}
+
+header {
+    background: #243b55;
+    color: white;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+header h1 {
+    font-size: 27px;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #ffd166;
+}
+
+.hero {
+    text-align: center;
+    color: white;
+    padding: 65px 20px;
+    background: linear-gradient(120deg, #243b55, #517fa4);
+}
+
+.hero h2 {
+    font-size: 40px;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    margin-bottom: 24px;
+}
+
+.search-box {
+    width: min(90%, 500px);
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+
+/* Advertisement section */
+
+.ads-section {
+    width: 90%;
+    max-width: 1200px;
+    margin: 35px auto 45px;
+}
+
+.ad-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.ad-header h2 {
+    color: #243b55;
+    font-size: 22px;
+    letter-spacing: 0;
+}
+
+.ads-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.ad-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px #00000012;
+    transition: transform 0.2s;
+}
+
+.ad-card:hover {
+    transform: translateY(-4px);
+}
+
+.ad-card img {
+    display: block;
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+}
+
+.ad-content {
+    padding: 18px;
+}
+
+.ad-label {
+    color: #777;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.ad-content h3 {
+    margin: 8px 0;
+    color: #243b55;
+}
+
+.ad-content p {
+    color: #666;
+    margin-bottom: 16px;
+}
+
+.ad-button {
+    display: inline-block;
+    background: #243b55;
+    color: white;
+    padding: 10px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.ad-button:hover {
+    background: #517fa4;
+}
+
+/* Featured article */
+
+.featured {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px #00000010;
+    margin-bottom: 45px;
+}
+
+.featured img {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    object-fit: cover;
+}
+
+.featured-content {
+    padding: 35px;
+    align-self: center;
+}
+
+.tag {
+    display: inline-block;
+    background: #e5edf5;
+    color: #243b55;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.featured h3 {
+    font-size: 28px;
+    margin-bottom: 12px;
+}
+
+.meta {
+    color: #777;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.featured p {
+    margin-bottom: 18px;
+}
+
+/* Blog filters and cards */
+
+.categories {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.categories button {
+    border: none;
+    background: #e0e6ed;
+    padding: 10px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.categories button.active,
+.categories button:hover {
+    background: #243b55;
+    color: white;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+}
+
+.blog-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px #00000010;
+    transition: transform 0.2s;
+}
+
+.blog-card:hover {
+    transform: translateY(-5px);
+}
+
+.blog-card img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+}
+
+.blog-content {
+    padding: 22px;
+}
+
+.blog-content h3 {
+    font-size: 21px;
+    line-height: 1.35;
+    margin-bottom: 10px;
+}
+
+.blog-content p {
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.read-more {
+    display: inline-block;
+    background: #243b55;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 5px;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.read-more:hover {
+    background: #517fa4;
+}
+
+/* Full article */
+
+.article-view {
+    display: none;
+    background: white;
+    padding: 35px;
+    margin-top: 35px;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px #00000010;
+}
+
+.article-view img {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.article-view h2 {
+    margin-bottom: 10px;
+}
+
+.article-view p {
+    margin-bottom: 18px;
+}
+
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 30px;
+}
+
+/* Newsletter */
+
+.newsletter {
+    background: #e5edf5;
+    text-align: center;
+    padding: 45px 20px;
+    margin-top: 50px;
+    border-radius: 10px;
+}
+
+.newsletter h2 {
+    margin-bottom: 10px;
+}
+
+.newsletter input {
+    padding: 12px;
+    width: min(90%, 320px);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 15px 5px;
+}
+
+.newsletter button {
+    padding: 12px 20px;
+    background: #243b55;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#newsletter-message {
+    margin-top: 10px;
+}
+
+/* Footer */
+
+footer {
+    background: #243b55;
+    color: white;
+    text-align: center;
+    padding: 30px 15px;
+    margin-top: 50px;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+    margin: 0 8px;
+}
+
+@media (max-width: 750px) {
+    header {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .hero h2 {
+        font-size: 30px;
+    }
+
+    .ads-container {
+        grid-template-columns: 1fr;
+    }
+
+    .ad-card img {
+        height: 220px;
+    }
+
+    .featured {
+        grid-template-columns: 1fr;
+    }
+
+    .featured img {
+        min-height: 220px;
+        max-height: 280px;
+    }
+
+    .featured-content,
+    .article-view {
+        padding: 22px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navigation -->
+<header>
+    <h1>📚 BookStore</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="index.html#books">Books</a>
+        <a href="blog.html">Blog</a>
+        <a href="#advertisements">Ads</a>
+        <a href="#newsletter">Subscribe</a>
+    </nav>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+    <h2>Welcome to Our Book Blog</h2>
+    <p>Discover books, reading tips, authors, and inspiring stories.</p>
+    <input
+        type="search"
+        class="search-box"
+        id="search"
+        placeholder="Search articles..."
+        aria-label="Search articles"
+    >
+</section>
+
+<!-- Random Photo Advertisements -->
+<section class="ads-section" id="advertisements">
+    <div class="ad-header">
+        <h2>Discover More</h2>
+        <span>ADVERTISEMENT</span>
+    </div>
+
+    <div class="ads-container" id="ads-container">
+
+        <article class="ad-card">
+            <img
+                src="https://picsum.photos/seed/booksale/600/300"
+                alt="Book sale advertisement"
+            >
+            <div class="ad-content">
+                <span class="ad-label">SPONSORED</span>
+                <h3>Special Book Sale</h3>
+                <p>Discover your next favorite book today.</p>
+                <a class="ad-button" href="index.html#books">Shop Now</a>
+            </div>
+        </article>
+
+        <article class="ad-card">
+            <img
+                src="https://picsum.photos/seed/reading/600/300"
+                alt="Reading lifestyle advertisement"
+            >
+            <div class="ad-content">
+                <span class="ad-label">SPONSORED</span>
+                <h3>Love Reading?</h3>
+                <p>Explore exciting stories and new adventures.</p>
+                <a class="ad-button" href="index.html#books">Explore Books</a>
+            </div>
+        </article>
+
+        <article class="ad-card">
+            <img
+                src="https://picsum.photos/seed/library/600/300"
+                alt="Library advertisement"
+            >
+            <div class="ad-content">
+                <span class="ad-label">SPONSORED</span>
+                <h3>Build Your Library</h3>
+                <p>Find books to inspire your imagination.</p>
+                <a class="ad-button" href="index.html#books">Browse Now</a>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+<main class="container">
+
+    <!-- Featured Article -->
+    <h2 class="section-title">Featured Article</h2>
+
+    <section class="featured">
+        <img
+            src="https://picsum.photos/seed/featuredreading/800/500"
+            alt="Books and reading"
+        >
+
+        <div class="featured-content">
+            <span class="tag">Reading Tips</span>
+            <h3>How Reading Books Can Change Your Life</h3>
+            <div class="meta">October 20, 2026 · 5 min read</div>
+            <p>
+                Reading opens the door to new ideas, improves your
+                imagination, and helps you understand the world.
+                Discover simple ways to build a daily reading habit.
+            </p>
+            <button class="read-more" onclick="openArticle(1)">
+                Read Full Article →
+            </button>
+        </div>
+    </section>
+
+    <!-- Blog Articles -->
+    <h2 class="section-title">Latest Articles</h2>
+
+    <div class="categories">
+        <button class="active" data-category="All">All Posts</button>
+        <button data-category="Reading Tips">Reading Tips</button>
+        <button data-category="Book Reviews">Book Reviews</button>
+        <button data-category="Authors">Authors</button>
+        <button data-category="Education">Education</button>
+    </div>
+
+    <section class="blog-grid" id="blog-grid"></section>
+
+    <!-- Full Article Display -->
+    <section class="article-view" id="article-view">
+        <button class="read-more" onclick="closeArticle()">
+            ← Back to Articles
+        </button>
+        <div id="article-content"></div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter" id="newsletter">
+        <h2>Join Our Reading Community</h2>
+        <p>Get book recommendations and new articles in your inbox.</p>
+
+        <form id="newsletter-form">
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email address"
+                required
+            >
+            <button type="submit">Subscribe</button>
+        </form>
+
+        <p id="newsletter-message" aria-live="polite"></p>
+    </section>
+
+</main>
+
+<!-- Footer -->
+<footer>
+    <h3>📚 BookStore Blog</h3>
+    <p>Read more. Learn more. Discover more.</p>
+    <p style="margin-top: 12px;">
+        <a href="index.html">Home</a>
+        <a href="#advertisements">Advertisements</a>
+        <a href="#newsletter">Newsletter</a>
+    </p>
+    <p style="margin-top: 15px;">
+        &copy; 2026 BookStore. All rights reserved.
+    </p>
+</footer>
+
+<script>
+const articles = [
+    {
+        id: 1,
+        title: "How Reading Books Can Change Your Life",
+        category: "Reading Tips",
+        date: "October 20, 2026",
+        author: "BookStore Team",
+        readTime: "5 min read",
+        image: "https://picsum.photos/seed/joyreading/800/500",
+        excerpt: "Discover how reading can improve your imagination, knowledge, and everyday life.",
+        paragraphs: [
+            "Books give us the opportunity to explore new ideas, visit unfamiliar places, and learn from other people's experiences. Even a few pages each day can introduce something valuable into your life.",
+            "Reading regularly can help you develop vocabulary, improve concentration, and make time for quiet reflection. Choose subjects that interest you so reading feels enjoyable rather than like a task.",
+            "Start with ten minutes a day. Keep a book near your favorite chair, carry one while travelling, and set a small weekly reading goal. The best reading habit is one you can maintain."
+        ]
+    },
+    {
+        id: 2,
+        title: "Five Books Every Reader Should Explore",
+        category: "Book Reviews",
+        date: "October 18, 2026",
+        author: "Emma Wilson",
+        readTime: "4 min read",
+        image: "https://picsum.photos/seed/bookrecommend/600/400",
+        excerpt: "Explore a selection of classic stories and thought-provoking books.",
+        paragraphs: [
+            "Choosing your next book can be an adventure. Classic literature, modern fiction, biographies, and popular science all offer different ways to explore the world.",
+            "Try Pride and Prejudice by Jane Austen, 1984 by George Orwell, To Kill a Mockingbird by Harper Lee, The Little Prince by Antoine de Saint-Exupéry, and a biography of someone whose work inspires you.",
+            "The perfect reading list is personal. Explore different genres and keep track of the books that leave you thinking long after the final page."
+        ]
+    },
+    {
+        id: 3,
+        title: "The Benefits of Reading Every Day",
+        category: "Reading Tips",
+        date: "October 15, 2026",
+        author: "Daniel James",
+        readTime: "3 min read",
+        image: "https://picsum.photos/seed/dailyreading/600/400",
+        excerpt: "Learn how a small daily reading habit can make a meaningful difference.",
+        paragraphs: [
+            "A daily reading routine creates time to focus on one idea at a time. It can also introduce new vocabulary and help you become familiar with different writing styles.",
+            "Choose a regular time, such as after breakfast or before bed. Keep your phone away and select a comfortable place where you can concentrate.",
+            "You do not need to finish a book quickly. A few thoughtful pages every day can be more rewarding than trying to read an entire book in one sitting."
+        ]
+    },
+    {
+        id: 4,
+        title: "How Great Authors Find Inspiration",
+        category: "Authors",
+        date: "October 12, 2026",
+        author: "Sophia Martin",
+        readTime: "6 min read",
+        image: "https://picsum.photos/seed/writersdesk/600/400",
+        excerpt: "Explore the everyday observations and experiences that inspire writers.",
+        paragraphs: [
+            "Authors find inspiration in many places: conversations, memories, travel, history, and ordinary moments that others might overlook.",
+            "Keeping a notebook can help writers capture interesting phrases, questions, and observations before they disappear. Reading widely also introduces different approaches to storytelling.",
+            "Inspiration is useful, but consistent practice matters too. Setting aside time to write allows small ideas to develop into complete stories."
+        ]
+    },
+    {
+        id: 5,
+        title: "Why Books Are Powerful Learning Tools",
+        category: "Education",
+        date: "October 10, 2026",
+        author: "Michael Brown",
+        readTime: "4 min read",
+        image: "https://picsum.photos/seed/learningbooks/600/400",
+        excerpt: "Discover ways to use books to develop knowledge and new skills.",
+        paragraphs: [
+            "Books organize information into a format you can revisit whenever you need it. A written explanation can be reviewed at your own pace.",
+            "To learn effectively, write short notes, highlight key concepts where appropriate, and explain what you have learned in your own words.",
+            "Combine reading with practice. Whether you are learning a language, studying science, or exploring technology, applying ideas helps turn information into useful knowledge."
+        ]
+    },
+    {
+        id: 6,
+        title: "How to Choose Your Next Great Book",
+        category: "Book Reviews",
+        date: "October 7, 2026",
+        author: "Olivia Clark",
+        readTime: "3 min read",
+        image: "https://picsum.photos/seed/nextbook/600/400",
+        excerpt: "Find your next favorite book with a few simple selection tips.",
+        paragraphs: [
+            "Begin with a topic you already enjoy, then look for books that explore it in a new way. Recommendations from friends and librarians can help you discover authors you might otherwise miss.",
+            "Read the description and a sample before deciding. Reviews can be useful, but your own interests are the most important guide.",
+            "Give a book a fair chance, but remember that you are allowed to choose something else if it does not hold your attention."
+        ]
+    }
+];
+
+let selectedCategory = "All";
+
+const grid = document.getElementById("blog-grid");
+const searchInput = document.getElementById("search");
+const articleView = document.getElementById("article-view");
+
+function displayArticles() {
+    const query = searchInput.value.toLowerCase().trim();
+
+    const filtered = articles.filter(article => {
+        const matchesCategory =
+            selectedCategory === "All" ||
+            article.category === selectedCategory;
+
+        const searchableText =
+            article.title + " " +
+            article.category + " " +
+            article.author + " " +
+            article.excerpt;
+
+        return matchesCategory &&
+            searchableText.toLowerCase().includes(query);
+    });
+
+    if (filtered.length === 0) {
+        grid.innerHTML =
+            '<p class="no-results">No articles found. Try another search.</p>';
+        return;
+    }
+
+    grid.innerHTML = filtered.map(article => `
+        <article class="blog-card">
+            <img
+                src="${article.image}"
+                alt="${article.title}"
+                loading="lazy"
+            >
+            <div class="blog-content">
+                <span class="tag">${article.category}</span>
+                <h3>${article.title}</h3>
+                <div class="meta">
+                    ${article.date} · ${article.readTime}
+                </div>
+                <p>${article.excerpt}</p>
+                <button
+                    class="read-more"
+                    onclick="openArticle(${article.id})"
+                >
+                    Read More →
+                </button>
+            </div>
+        </article>
+    `).join("");
+}
+
+function openArticle(id) {
+    const article = articles.find(item => item.id === id);
+    if (!article) return;
+
+    document.getElementById("article-content").innerHTML = `
+        <span class="tag">${article.category}</span>
+        <h2>${article.title}</h2>
+        <div class="meta">
+            By ${article.author} · ${article.date} · ${article.readTime}
+        </div>
+        <img src="${article.image}" alt="${article.title}">
+        ${article.paragraphs.map(
+            paragraph => `<p>${paragraph}</p>`
+        ).join("")}
+    `;
+
+    articleView.style.display = "block";
+    articleView.scrollIntoView({ behavior: "smooth" });
+}
+
+function closeArticle() {
+    articleView.style.display = "none";
+    document.querySelector(".section-title:nth-of-type(2)")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// Category filtering
+document.querySelectorAll(".categories button").forEach(button => {
+    button.addEventListener("click", () => {
+        selectedCategory = button.dataset.category;
+
+        document.querySelectorAll(".categories button")
+            .forEach(item => item.classList.remove("active"));
+
+        button.classList.add("active");
+        displayArticles();
+    });
+});
+
+// Search articles
+searchInput.addEventListener("input", displayArticles);
+
+// Randomize advertisement photos on each page load
+const adPhotos = [
+    "https://picsum.photos/seed/bookshelf/600/300",
+    "https://picsum.photos/seed/bookstore/600/300",
+    "https://picsum.photos/seed/coffeeandbooks/600/300",
+    "https://picsum.photos/seed/studytime/600/300",
+    "https://picsum.photos/seed/readingcorner/600/300",
+    "https://picsum.photos/seed/bookstack/600/300",
+    "https://picsum.photos/seed/libraryinterior/600/300",
+    "https://picsum.photos/seed/readingdesk/600/300"
+];
+
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+function randomizeAds() {
+    const photos = shuffle([...adPhotos]);
+
+    document.querySelectorAll("#ads-container .ad-card img")
+        .forEach((img, index) => {
+            img.src = photos[index % photos.length];
+        });
+}
+
+// Newsletter demo
+document.getElementById("newsletter-form")
+    .addEventListener("submit", event => {
+        event.preventDefault();
+
+        document.getElementById("newsletter-message").textContent =
+            "Thank you for your interest! This demo does not save email addresses. Connect a newsletter service to enable subscriptions.";
+
+        event.target.reset();
+    });
+
+// Initialize page
+randomizeAds();
+displayArticles();
+</script>
+
+</body>
+</html>
